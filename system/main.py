@@ -7,10 +7,8 @@ CURR_PATH = os.path.dirname(os.path.realpath(__file__)) + '\\'
 INPUT_FILENAME = 'BX-Whole.csv'
 
 class RecommendationSystem:
-    def __init__(self):
-        self.user = user
 
-    def recommend(self):
+    def recommend(self, user):
         pass
 
 def get_random_user(df):
