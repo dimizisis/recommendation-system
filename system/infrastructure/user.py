@@ -1,7 +1,8 @@
 
 class User:
-    def __init__(self, uid, location, age=None):
+    def __init__(self, uid, location, profile, rated_books, age=None):
         self.uid = uid
         self.location = location
         self.age = age
-        # self.ratings = ratings
+        self.rated_books = rated_books
+        self.profile = profile
