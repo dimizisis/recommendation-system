@@ -40,9 +40,7 @@ class RecommendationSystem:
 
         sorted_book_lst = sorted(book_lst, key=lambda k: k['similarity'], reverse=True)
 
-        print(sorted_book_lst[:10])
-        
-        # return sorted_book_lst[:10]
+        return sorted_book_lst[:10]
                 
     def calc_similarity(self, keyword_similarity_value, author_equality_value, year_diff_value, keyword_similarity_method):
         '''
@@ -64,7 +62,7 @@ class RecommendationSystem:
         author_equality = 0
         for user_book_author in user_book_authors:
             if book_author == user_book_author:
-                author_equality = 1
+                author_equality = 1 # if book author equality found, stop and return 1
                 return author_equality
         return author_equality
                  
@@ -79,7 +77,7 @@ class RecommendationSystem:
         for year in user_pub_years:
             if abs(year - book_pub_year) < min_year_diff:
                 min_year_diff = year - book_pub_year
-                year_diff_value = 1 - (abs(int(year - book_pub_year)/2005))
+                year_diff_value = 1 - (abs(int(year - book_pub_year)/2005)) # normalization with given formula
         return year_diff_value    
 
     def find_max_jaccard_similarity(self, complete_keyword_lst, row_keyword_lst):
@@ -90,11 +88,11 @@ class RecommendationSystem:
         '''
         max_value = 0
         for keyword_lst in complete_keyword_lst:
-            curr_jaccard_similarity = self.jaccard_similarity(keyword_lst, row_keyword_lst)
+            curr_jaccard_similarity = self.jaccard_similarity(keyword_lst, row_keyword_lst) # for each keyword list (3 in total) calculate the jaccard similarity
             if max_value < curr_jaccard_similarity:
                 max_value = curr_jaccard_similarity
 
-        return max_value
+        return max_value    # return max similarity
 
     def find_max_dice_coef(self, complete_keyword_lst, row_keyword_lst):
         '''
