@@ -1,6 +1,10 @@
 
 # Content-Based Recommendation System
 
+A university project
+
+Course: Information Retrieval & Search Engines
+
 ## Description
 A content-based recommendation system for books (see dataset below). The program chooses a random user & takes his best 3 ratings. Based on these 3 ratings, recommends to the user 10 books, which may like. The recommended books are based on 3 factors:
 
