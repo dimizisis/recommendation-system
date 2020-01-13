@@ -1,16 +1,18 @@
 
-# Description
+# Content-Based Recommendation System
+
+## Description
 A content-based recommendation system for books (see dataset below). The program chooses a random user & takes his best 3 ratings. Based on these 3 ratings, recommends to the user 10 books, which may like. The recommended books are based on 3 factors:
 
 1. Books' titles Keyword similarity (Jaccard Similarity or Dice Coefficient)
 2. Book author equality
 3. Publish Year Difference
 
-# Instructions
+## Instructions
 ```
 pip install -r requirements.txt
 ```
-## Preprocessing
+### Preprocessing
 
 The 3 initial CSV files must be in the same folder with preproc.py. When you run the file for the first time, please uncomment the lines 5 and 6:
 
@@ -19,11 +21,11 @@ The 3 initial CSV files must be in the same folder with preproc.py. When you run
 # nltk.download('punkt')
 ```
 
-## Recommendation System
+### Recommendation System
 
 The BX-Whole CSV file must be in the same folder with main.py
 
-# Preprocessing
+## Preprocessing
 
 From the initial dataset, we remove:
 
@@ -42,19 +44,19 @@ At the end, we join all tables (BX-Books, BX-Book-Ratings, BX-Users) into a new 
 
 We create the BX-Whole.csv file, which is going to be the input for our recommendation system.
 
-# Usage
+## Usage
 
-## Preprocessing
+### Preprocessing
 
 ```
 python preproc.py
 ```
-## Recommendation System
+### Recommendation System
 
 ```
 python main.py
 ```
 
-# Dataset
+## Dataset
 
 [Book-Crossing dataset](http://www2.informatik.uni-freiburg.de/~cziegler/BX/ "Link to Dataset")
