@@ -1,6 +1,8 @@
 
 import ast
 
+from operator import itemgetter
+
 class RecommendationSystem:
 
     def __init__(self, df):
@@ -18,9 +20,9 @@ class RecommendationSystem:
 
         book_lst = list()   # the list will contain all the books with the similarity
         for index, row in self.df.iterrows():   # for each row of dataframe
-            if row['ISBN'] not in user.rated_books: # if user hasn't rated the specific book, proceed
+            if row['ISBN'] not in user.rated_books: # if user hasn't rated the specific book and the book is not in book list, proceed
+                
                 curr_keywords = ast.literal_eval(row['Keywords'])
-
                 if keyword_similarity_method == 'jaccard':
                     keyword_similarity_value = self.find_max_jaccard_similarity(complete_keyword_lst, curr_keywords)    # find jaccard similarity value for keyword lists
                 elif keyword_similarity_method == 'dice':
@@ -37,6 +39,8 @@ class RecommendationSystem:
                 if similarity_value > 0:    # we will not recommend a book with similarity value 0, so no reason to add it to book list         
                     book = {'ISBN': row['ISBN'], 'similarity': similarity_value}
                     book_lst.append({'ISBN': row['ISBN'], 'similarity': similarity_value}) if book not in book_lst else book_lst
+
+        print('Len(Book_lst) == '+str(len(book_lst)))
 
         sorted_book_lst = sorted(book_lst, key=lambda k: k['similarity'], reverse=True)
 

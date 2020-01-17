@@ -24,12 +24,19 @@ def get_random_user(df):
 if __name__ == '__main__':  
     df = pd.read_csv(CURR_PATH + INPUT_FILENAME, encoding='unicode_escape', sep=';')
     rec_system = RecommendationSystem(df)   # create a recommendation system
-    user1 = get_random_user(df)
+    age=27
+    uid=276847
+    profile = df.loc[df['User-ID'] == uid].nlargest(3, ['Book-Rating'])[['ISBN', 'Book-Rating', 'Book-Title', 'Keywords', 'Book-Author', 'Year-Of-Publication']]
+    location='kΓ¶ln, nordrhein-westfalen, germany'
+    rated_books = df.loc[df['User-ID'] == uid]['ISBN'].tolist() # find all the books that are rated by the user & return them as list
+
+    user1 = User(uid, location, profile, rated_books, age)
+    
     recommended_books_jacc = rec_system.get_recommended_books(user1)   # get the recommended books for the random user (jaccard by default for keyword list similarity)
-    recommended_books_dice = rec_system.get_recommended_books(user1, keyword_similarity_method='dice')   # get the recommended books for the random user (jaccard by default for keyword list similarity)
+    # recommended_books_dice = rec_system.get_recommended_books(user1, keyword_similarity_method='dice')   # get the recommended books for the random user (jaccard by default for keyword list similarity)
 
     print('============= Jaccard =============')
     print(recommended_books_jacc)
 
     print('============= Dice =============')
-    print(recommended_books_dice)
+    # print(recommended_books_dice)

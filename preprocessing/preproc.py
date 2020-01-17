@@ -19,7 +19,9 @@ def read_csv_files():
         print('Reading files...')
         ratings_df = pd.read_csv(CURR_PATH + BOOK_RATINGS_FILENAME, encoding='unicode_escape', sep=';')
         users_df = pd.read_csv(CURR_PATH + BOOK_USERS_FILENAME, encoding='unicode_escape', sep=';', escapechar='\\')
-        books_df = pd.read_csv(CURR_PATH + BOOKS_FILENAME, encoding='unicode_escape', sep=';', escapechar='\\')
+
+        book_fields = ['ISBN', 'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher'] # read only these fields from csv (removed URLs)
+        books_df = pd.read_csv(CURR_PATH + BOOKS_FILENAME, encoding='unicode_escape', sep=';', escapechar='\\', usecols=book_fields)
         print('Files read.')
     except Exception as e:
         print(e)
@@ -110,11 +112,13 @@ def preprocess(dataframe):
             str.lower(title)
         except:
             title = ''
-            print(title)
         keywords.append(create_keywords(title))
     dataframe['Keywords'] = keywords
     print('Preprocessing OK.')
-    return dataframe
+
+    dataframe = dataframe[dataframe['Book-Title'] != '']    # drop rows with empty values in title
+    
+    return dataframe.dropna(subset=['Book-Title']) # drop rows with nan values in title
 
 def export_to_csv(dataframe, outfilename):
     '''
