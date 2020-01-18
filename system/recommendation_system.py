@@ -40,8 +40,6 @@ class RecommendationSystem:
                     book = {'ISBN': row['ISBN'], 'similarity': similarity_value}
                     book_lst.append({'ISBN': row['ISBN'], 'similarity': similarity_value}) if book not in book_lst else book_lst
 
-        print('Len(Book_lst) == '+str(len(book_lst)))
-
         sorted_book_lst = sorted(book_lst, key=lambda k: k['similarity'], reverse=True)
 
         return sorted_book_lst[:10]
