@@ -1,8 +1,6 @@
 
 import ast
 
-from operator import itemgetter
-
 class RecommendationSystem:
 
     def __init__(self, df):

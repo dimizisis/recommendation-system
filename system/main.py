@@ -6,6 +6,7 @@ from recommendation_system import RecommendationSystem
 
 CURR_PATH = os.path.dirname(os.path.realpath(__file__)) + '\\'
 INPUT_FILENAME = 'BX-Whole.csv'
+NUM_USERS = 5
 
 def get_random_user(df):
     '''
@@ -31,7 +32,7 @@ if __name__ == '__main__':
     df = pd.read_csv(CURR_PATH + INPUT_FILENAME, encoding='unicode_escape', sep=';')
     rec_system = RecommendationSystem(df)   # create a recommendation system
 
-    for i in range(5):
+    for i in range(NUM_USERS):
         user = get_random_user(df)
         recommended_books_jacc = rec_system.get_recommended_books(user)   # get the recommended books for the random user (jaccard by default for keyword list similarity)
         write_recommendations_to_file(user, recommended_books_jacc, 'jaccard')

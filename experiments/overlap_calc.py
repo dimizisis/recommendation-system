@@ -3,7 +3,7 @@ import json
 import os
 import sys
 
-CURR_PATH = os.path.dirname(os.path.realpath(__file__)) + '\\'
+FILES_PATH = os.path.dirname(os.path.realpath(__file__)) + '\\files\\'
 
 def open_files():
     '''
@@ -18,7 +18,7 @@ def open_files():
         exit(-1)
     file_data = list()
     for f_name in filenames:
-        with open(CURR_PATH+f_name) as f:
+        with open(FILES_PATH+f_name) as f:
             file_data.append(json.load(f))
 
     return file_data
