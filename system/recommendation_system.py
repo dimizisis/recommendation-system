@@ -17,8 +17,9 @@ class RecommendationSystem:
             complete_keyword_lst.append(ast.literal_eval(keyword_lst))   # get keywords as list
 
         book_lst = list()   # the list will contain all the books with the similarity
+        already_rated = dict()
         for index, row in self.df.iterrows():   # for each row of dataframe
-            if row['ISBN'] not in user.rated_books: # if user hasn't rated the specific book and the book is not in book list, proceed
+            if row['ISBN'] not in user.rated_books and already_rated.get(row['ISBN'], None) is None: # if user hasn't rated the specific book and the book is not in book list, proceed
                 
                 curr_keywords = ast.literal_eval(row['Keywords'])
                 if keyword_similarity_method == 'jaccard':
@@ -37,6 +38,7 @@ class RecommendationSystem:
                 if similarity_value > 0:    # we will not recommend a book with similarity value 0, so no reason to add it to book list         
                     book = {'ISBN': row['ISBN'], 'similarity': similarity_value}
                     book_lst.append({'ISBN': row['ISBN'], 'similarity': similarity_value}) if book not in book_lst else book_lst
+                    already_rated[row['ISBN']] = 1
 
         sorted_book_lst = sorted(book_lst, key=lambda k: k['similarity'], reverse=True)
 
