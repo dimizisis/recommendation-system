@@ -24,7 +24,7 @@ def get_random_user(df):
 
 def write_recommendations_to_file(user, recommendations, method):
     import json
-    with open(f'{CURR_PATH}{user.uid}-{method}', 'w') as file:
+    with open(f'{CURR_PATH}{user.uid}-{method}.json', 'w') as file:
         file.write(json.dumps(recommendations, indent=4))
         print('file written')
 
