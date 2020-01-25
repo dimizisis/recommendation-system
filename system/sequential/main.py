@@ -34,8 +34,8 @@ if __name__ == '__main__':
 
     for i in range(NUM_USERS):
         user = get_random_user(df)
+        print(f'We will recommend books to user with ID: {user.uid}\n')
         recommended_books_jacc = rec_system.get_recommended_books(user)   # get the recommended books for the random user (jaccard by default for keyword list similarity)
         write_recommendations_to_file(user, recommended_books_jacc, 'jaccard')
         recommended_books_dice = rec_system.get_recommended_books(user, keyword_similarity_method='dice')   # get the recommended books for the random user (dice coef)
         write_recommendations_to_file(user, recommended_books_dice, 'dice')
-

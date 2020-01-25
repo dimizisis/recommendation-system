@@ -1,12 +1,13 @@
 
 import ast
+from queue import Queue
 
 class RecommendationSystem:
 
     def __init__(self, df):
         self.df = df
 
-    def get_recommended_books(self, user, keyword_similarity_method='jaccard'):
+    def get_recommended_books(self, q, user, keyword_similarity_method='jaccard'):
         '''
         Given an object of type User, returns recommended books for the specific user
         Optional parameter the keyword_similarity_method, by default is jaccard (alternative: dice)
@@ -19,7 +20,7 @@ class RecommendationSystem:
         book_lst = list()   # the list will contain all the books with the similarity
         already_rated = dict()
         for index, row in self.df.iterrows():   # for each row of dataframe
-            if row['ISBN'] not in user.rated_books and already_rated.get(row['ISBN'], None) is None: # if user hasn't rated the specific book and the book is not in book list, proceed
+            if row['ISBN'] not in user.rated_books and already_rated.get(row['ISBN'], None) is None: # if the book has not been rated in previous iteration and the book is not in user's rated list, proceed
                 
                 curr_keywords = ast.literal_eval(row['Keywords'])
                 if keyword_similarity_method == 'jaccard':
@@ -42,7 +43,7 @@ class RecommendationSystem:
 
         sorted_book_lst = sorted(book_lst, key=lambda k: k['similarity'], reverse=True)
 
-        return sorted_book_lst[:10]
+        return q.put({'uid': user.uid, 'method': keyword_similarity_method, 'recommendations': sorted_book_lst[:10]})
                 
     def calc_similarity(self, keyword_similarity_value, author_equality_value, year_diff_value, keyword_similarity_method):
         '''
